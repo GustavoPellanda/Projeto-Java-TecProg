@@ -7,14 +7,24 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("Enter faculty member name (or 'exit' to quit): ");
-            String name = scanner.nextLine();
+            System.out.print("Enter faculty member name, 'remove <name>' to remove, or 'exit' to quit: ");
+            String input = scanner.nextLine();
 
-            if (name.equalsIgnoreCase("exit")) {
+            if (input.equalsIgnoreCase("exit")) {
                 break;
             }
 
-            facultyList.addFaculty(name);
+            if (input.toLowerCase().startsWith("remove ")) {
+                String nameToRemove = input.substring(7).trim();
+                boolean removed = facultyList.removeFaculty(nameToRemove);
+                if (removed) {
+                    System.out.println(nameToRemove + " was removed.\n");
+                } else {
+                    System.out.println(nameToRemove + " not found.");
+                }
+            } else {
+                facultyList.addFaculty(input);
+            }
 
             List<String> list = facultyList.getFacultyList();
             System.out.println("Current Faculty Members:");

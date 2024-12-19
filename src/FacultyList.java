@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class creates a list of faculty members.
@@ -18,5 +19,15 @@ public class FacultyList {
 
     public List<String> getFacultyList() {
         return facultyList;
+    }
+
+    public boolean removeFaculty(String name) {
+        Optional<String> facultyToRemove = facultyList.stream()
+        .filter(faculty -> faculty.equalsIgnoreCase(name))
+        .findFirst();
+        
+        facultyToRemove.ifPresent(facultyList::remove);
+        
+        return facultyToRemove.isPresent();
     }
 }
