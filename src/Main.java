@@ -10,20 +10,20 @@ public class Main {
         FacultyList facultyList = new FacultyList();
 
         // Create the main window
-        JFrame frame = new JFrame("Faculty Management");
+        JFrame frame = new JFrame("Gerenciador de Docentes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+        frame.setSize(400, 400);
 
-        // Main panel
+        // Main panel with GridLayout
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        panel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 rows, 1 column, with spacing
 
         // Input field and button for adding
         JPanel addPanel = new JPanel();
         addPanel.setLayout(new FlowLayout());
         JTextField addField = new JTextField(20);
-        JButton addButton = new JButton("Add");
-        addPanel.add(new JLabel("Add Faculty:"));
+        JButton addButton = new JButton("Adicionar");
+        addPanel.add(new JLabel("Adicionar Docente:"));
         addPanel.add(addField);
         addPanel.add(addButton);
 
@@ -31,8 +31,8 @@ public class Main {
         JPanel removePanel = new JPanel();
         removePanel.setLayout(new FlowLayout());
         JTextField removeField = new JTextField(20);
-        JButton removeButton = new JButton("Remove");
-        removePanel.add(new JLabel("Remove Faculty:"));
+        JButton removeButton = new JButton("Remover");
+        removePanel.add(new JLabel("Remover Docente:"));
         removePanel.add(removeField);
         removePanel.add(removeButton);
 
@@ -42,9 +42,9 @@ public class Main {
         JScrollPane scrollPane = new JScrollPane(listArea);
 
         // Add panels to the main panel
-        panel.add(addPanel, BorderLayout.NORTH);
-        panel.add(removePanel, BorderLayout.CENTER);
-        panel.add(scrollPane, BorderLayout.SOUTH);
+        panel.add(addPanel);
+        panel.add(removePanel);
+        panel.add(scrollPane);
 
         // Add functionality to the buttons
         addButton.addActionListener(new ActionListener() {
@@ -66,9 +66,9 @@ public class Main {
                 if (!name.isEmpty()) {
                     boolean removed = facultyList.removeFaculty(name);
                     if (removed) {
-                        JOptionPane.showMessageDialog(frame, name + " was removed.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, name + " foi removido.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(frame, name + " not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, name + " não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                     updateList(listArea, facultyList);
                     removeField.setText(""); // Clear the field
