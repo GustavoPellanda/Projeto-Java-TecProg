@@ -25,7 +25,6 @@ public class FacultyList {
         Optional<String> facultyToRemove = facultyList.stream()
         .filter(faculty -> faculty.equalsIgnoreCase(name))
         .findFirst();
-        
         facultyToRemove.ifPresent(facultyList::remove);
         
         return facultyToRemove.isPresent();
