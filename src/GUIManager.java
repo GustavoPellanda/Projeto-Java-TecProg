@@ -20,11 +20,11 @@ public class GUIManager {
         JFrame frame = new JFrame("Gerenciador de Docentes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
-
+    
         // Main panel with GridLayout
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 rows, 1 column, with spacing
-
+    
         // Input field and button for adding
         JPanel addPanel = new JPanel();
         addPanel.setLayout(new FlowLayout());
@@ -33,7 +33,7 @@ public class GUIManager {
         addPanel.add(new JLabel("Adicionar Docente:"));
         addPanel.add(addField);
         addPanel.add(addButton);
-
+    
         // Input field and button for removing
         JPanel removePanel = new JPanel();
         removePanel.setLayout(new FlowLayout());
@@ -42,17 +42,17 @@ public class GUIManager {
         removePanel.add(new JLabel("Remover Docente:"));
         removePanel.add(removeField);
         removePanel.add(removeButton);
-
+    
         // Text area for displaying the list
         JTextArea listArea = new JTextArea(10, 30);
         listArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(listArea);
-
+    
         // Add panels to the main panel
         panel.add(addPanel);
         panel.add(removePanel);
         panel.add(scrollPane);
-
+    
         // Add functionality to the buttons
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -65,7 +65,7 @@ public class GUIManager {
                 }
             }
         });
-
+    
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,11 +82,14 @@ public class GUIManager {
                 }
             }
         });
-
+    
+        // Update the list when GUI is created
+        updateList(listArea);
+    
         // Configure the window and make it visible
         frame.add(panel);
         frame.setVisible(true);
-    }
+    }    
 
     // Method to update the text area with the list of members
     private void updateList(JTextArea listArea) {
