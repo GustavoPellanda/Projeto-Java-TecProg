@@ -8,11 +8,13 @@ public class App {
     private FacultyList facultyList;
     private GUIManager guiManager;
     private SaveManager saveManager;
+    private TimeCounter timeCounter;
 
     public App() {
-        saveManager = new SaveManager();
         facultyList = new FacultyList();
         guiManager = new GUIManager(facultyList);
+        saveManager = new SaveManager();
+        timeCounter = new TimeCounter();
     }
 
     // Loads the saved faculty list into the facultyList
@@ -21,6 +23,11 @@ public class App {
         for (String name : savedList) {
             facultyList.addFaculty(name);
         }
+    }
+
+    // Counts the years for the app and faculty members
+    private void changeTimeStamps() {
+        timeCounter.incrementYear(); // At the moment, the year is incremented every time the application is started.
     }
 
     // Creates the GUI
@@ -36,6 +43,7 @@ public class App {
     }
 
     public void start() {
+        changeTimeStamps();
         loadSavedFacultyList();
         createAndShowGUI();
         setupShutdownHook();
