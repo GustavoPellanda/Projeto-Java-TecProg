@@ -1,5 +1,9 @@
 import java.util.List;
 
+/**
+ * This class is responsible for managing the order of execution of the application.
+ */
+
 public class App {
     private FacultyList facultyList;
     private GUIManager guiManager;
