@@ -34,7 +34,7 @@ public class FacultyList {
 
     // Methods used to insert a new faculty member:
 
-    // Check if the name is already on the list:
+    // Checks if the name is already on the list:
     private boolean isDuplicate(String name) {
         return facultyList.stream().anyMatch(faculty -> faculty.equalsIgnoreCase(name));
     }
