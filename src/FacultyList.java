@@ -14,7 +14,7 @@ public class FacultyList {
     }
 
     public void addFaculty(String name) {
-        facultyList.add(name);
+        facultyList.add(formatName(name));
     }
 
     public List<String> getFacultyList() {
@@ -28,5 +28,22 @@ public class FacultyList {
         facultyToRemove.ifPresent(facultyList::remove);
         
         return facultyToRemove.isPresent();
+    }
+
+    // Capitalizes the first letter of each word in the name
+    private String formatName(String name) {
+        String[] nameParts = name.split(" ");
+        StringBuilder formattedName = new StringBuilder();
+        
+        for (String part : nameParts) {
+            if (!part.isEmpty()) {
+                formattedName.append(part.substring(0, 1).toUpperCase())  // Capitalize first letter
+                              .append(part.substring(1).toLowerCase())   // Make the rest of the letters lowercase
+                              .append(" ");  // Add a space between the names
+            }
+        }
+        
+        // Trim the trailing space and return the formatted name
+        return formattedName.toString().trim();
     }
 }
