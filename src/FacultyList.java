@@ -14,7 +14,9 @@ public class FacultyList {
     }
 
     public void addFaculty(String name) {
-        facultyList.add(formatName(name));
+        if (!isDuplicate(name)) {
+            facultyList.add(formatName(name));
+        }
     }
 
     public List<String> getFacultyList() {
@@ -28,6 +30,13 @@ public class FacultyList {
         facultyToRemove.ifPresent(facultyList::remove);
         
         return facultyToRemove.isPresent();
+    }
+
+    // Methods used to insert a new faculty member:
+
+    // Check if the name is already on the list:
+    private boolean isDuplicate(String name) {
+        return facultyList.stream().anyMatch(faculty -> faculty.equalsIgnoreCase(name));
     }
 
     // Capitalizes the first letter of each word in the name
