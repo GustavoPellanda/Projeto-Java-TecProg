@@ -9,10 +9,11 @@ public class App {
     private GUIManager guiManager;
     private SaveManager saveManager;
     private TimeCounter timeCounter;
+    private CoordinatorPicker coordinatorPicker;
 
     public App() {
         facultyList = new FacultyList();
-        guiManager = new GUIManager(facultyList);
+        guiManager = new GUIManager(facultyList, coordinatorPicker);
         saveManager = new SaveManager();
         timeCounter = new TimeCounter();
     }

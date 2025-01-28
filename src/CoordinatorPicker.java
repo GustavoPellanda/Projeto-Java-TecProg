@@ -5,10 +5,15 @@ import java.util.Random;
  * This class is responsible for choosing who the next coordinator will be.
  */
 
-public class CoordinatorPicker {
+ public class CoordinatorPicker {
 
     private String coordinator;
     private String viceCoordinator;
+
+    public CoordinatorPicker() {
+        this.coordinator = "";
+        this.viceCoordinator = "";
+    }
 
     // Selects the next coordinator and vice-coordinator
     public void chooseCoordinator(List<String> facultyList) {
@@ -17,7 +22,7 @@ public class CoordinatorPicker {
         }
 
         // In the first election, there is no vice-coordinator
-        if (viceCoordinator == null) {
+        if (viceCoordinator == null || viceCoordinator.isEmpty()) {
             viceCoordinator = pickFacultyMember(facultyList);
             coordinator = pickFacultyMember(facultyList);
         }
@@ -46,3 +51,4 @@ public class CoordinatorPicker {
         return viceCoordinator;
     }
 }
+
