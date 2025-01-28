@@ -42,6 +42,7 @@ import java.util.Random;
 
         return selected;
     }
+    // no futuro, vou precisar validar os outros requisitos
 
     public String getCoordinator() {
         return coordinator;

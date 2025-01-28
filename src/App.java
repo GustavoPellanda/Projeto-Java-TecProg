@@ -13,6 +13,7 @@ public class App {
 
     public App() {
         facultyList = new FacultyList();
+        coordinatorPicker = new CoordinatorPicker();
         guiManager = new GUIManager(facultyList, coordinatorPicker);
         saveManager = new SaveManager();
         timeCounter = new TimeCounter();

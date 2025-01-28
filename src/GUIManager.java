@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * This class is responsible for creating and managing the GUI.
  */
+
 public class GUIManager {
     private FacultyList facultyList;
     private CoordinatorPicker coordinatorPicker;
@@ -52,13 +53,13 @@ public class GUIManager {
         // Coordinator and Vice-Coordinator display
         JPanel coordinatorPanel = new JPanel();
         coordinatorPanel.setLayout(new GridLayout(2, 1));
-        JLabel coordinatorLabel = new JLabel("Coordinator: ");
-        JLabel viceCoordinatorLabel = new JLabel("Vice-Coordinator: ");
+        JLabel coordinatorLabel = new JLabel("Coordenador: ");
+        JLabel viceCoordinatorLabel = new JLabel("Vice-Coordenador: ");
         coordinatorPanel.add(coordinatorLabel);
         coordinatorPanel.add(viceCoordinatorLabel);
 
         // Button to pick the next coordinator
-        JButton pickButton = new JButton("Pick Next Coordinator");
+        JButton pickButton = new JButton("Escolher Novo Coordenador");
 
         // Add panels to the main panel
         panel.add(addPanel);
@@ -87,9 +88,9 @@ public class GUIManager {
                 if (!name.isEmpty()) {
                     boolean removed = facultyList.removeFaculty(name);
                     if (removed) {
-                        JOptionPane.showMessageDialog(frame, name + " has been removed.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, name + " foi removido.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(frame, name + " not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, name + " não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                     updateList(listArea);
                     removeField.setText(""); // Clear the field
@@ -103,10 +104,10 @@ public class GUIManager {
                 if (!facultyList.getFacultyList().isEmpty()) {
                     coordinatorPicker.chooseCoordinator(facultyList.getFacultyList());
                     // Update labels with the new coordinator and vice-coordinator
-                    coordinatorLabel.setText("Coordinator: " + coordinatorPicker.getCoordinator());
-                    viceCoordinatorLabel.setText("Vice-Coordinator: " + coordinatorPicker.getViceCoordinator());
+                    coordinatorLabel.setText("Coordenador: " + coordinatorPicker.getCoordinator());
+                    viceCoordinatorLabel.setText("Vice-Coordenador: " + coordinatorPicker.getViceCoordinator());
                 } else {
-                    JOptionPane.showMessageDialog(frame, "The faculty list is empty. Add members first.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "A lista de docentes está vazia. Adicione membros primeiro.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
