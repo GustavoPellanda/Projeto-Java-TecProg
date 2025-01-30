@@ -8,7 +8,6 @@ public class App {
     private FacultyList facultyList;
     private GUIManager guiManager;
     private SaveManager saveManager;
-    private TimeCounter timeCounter;
     private CoordinatorPicker coordinatorPicker;
 
     public App() {
@@ -16,24 +15,24 @@ public class App {
         coordinatorPicker = new CoordinatorPicker();
         guiManager = new GUIManager(facultyList, coordinatorPicker);
         saveManager = new SaveManager();
-        timeCounter = new TimeCounter();
     }
 
     // Loads the saved faculty list into the facultyList
     private void loadSavedFacultyList() {
         Map<String, Integer> savedMap = saveManager.loadFacultyList();
         for (Map.Entry<String, Integer> entry : savedMap.entrySet()) {
-            facultyList.addFaculty(entry.getKey()); // Adds the faculty member
-            for (int i = 0; i < entry.getValue(); i++) {
-                facultyList.incrementMembership(); // Increments membership time to match saved value
-            }
+            String name = entry.getKey();
+            int membershipTime = entry.getValue();
+    
+            // Adds the faculty member and sets the corresponding membership time
+            facultyList.addFaculty(name);
+            facultyList.setMembershipTime(name, membershipTime);
         }
     }
 
     // Counts the years for the app and faculty members
     private void changeTimeStamps() {
-        timeCounter.incrementYear(); // At the moment, the year is incremented every time the application is started.
-        facultyList.incrementMembership();
+        facultyList.incrementMembershipTime(); // At the moment, the year is incremented every time the application is started.
     }
 
     // Creates the GUI
@@ -44,13 +43,26 @@ public class App {
     // Saves the faculty list when the application is closed
     private void Shutdown() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            saveManager.saveFacultyList(facultyList.getMembershipTimeMap());
+            saveManager.saveFacultyList(facultyList.getMembershipTime());
         }));
     }
 
+     /**
+     * Prints the membership time of each faculty member to the terminal.
+     * This is a temporary method for testing purposes.
+     */
+    private void printMembershipTime() {
+        System.out.println("Faculty Membership Time (Test):");
+        facultyList.getMembershipTime().forEach((name, time) -> {
+            System.out.println(name + " - Membership Time: " + time + " years");
+        });
+        System.out.println(); // Add a blank line for better readability
+    }
+
     public void start() {
-        changeTimeStamps();
         loadSavedFacultyList();
+        changeTimeStamps();
+        printMembershipTime();
         createAndShowGUI();
         Shutdown();
     }

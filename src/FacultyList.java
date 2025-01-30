@@ -44,14 +44,21 @@ public class FacultyList {
 
     // Methods used to manage the membership time of each faculty member:
 
-    public void incrementMembership() {
+    public void incrementMembershipTime() {
         facultyList.forEach(name -> {
             int currentTime = membershipTimeMap.getOrDefault(name, 0);
             membershipTimeMap.put(name, currentTime + 1);
         });
     }
 
-    public Map<String, Integer> getMembershipTimeMap() {
+    public void setMembershipTime(String name, int time) {
+        String formattedName = formatName(name);
+        if (facultyList.contains(formattedName)) {
+            membershipTimeMap.put(formattedName, time);
+        }
+    }    
+
+    public Map<String, Integer> getMembershipTime() {
         return membershipTimeMap;
     }
 
