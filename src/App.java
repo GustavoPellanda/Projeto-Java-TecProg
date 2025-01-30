@@ -47,22 +47,9 @@ public class App {
         }));
     }
 
-     /**
-     * Prints the membership time of each faculty member to the terminal.
-     * This is a temporary method for testing purposes.
-     */
-    private void printMembershipTime() {
-        System.out.println("Faculty Membership Time (Test):");
-        facultyList.getMembershipTime().forEach((name, time) -> {
-            System.out.println(name + " - Membership Time: " + time + " years");
-        });
-        System.out.println(); // Add a blank line for better readability
-    }
-
     public void start() {
         loadSavedFacultyList();
         changeTimeStamps();
-        printMembershipTime();
         createAndShowGUI();
         Shutdown();
     }
