@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -7,15 +9,19 @@ import java.util.Optional;
  */
 
 public class FacultyList {
-    private List<String> facultyList;
+    private List<String> facultyList; // Will store the names of the faculty
+    private Map<String, Integer> membershipTimeMap; // Will store the time of membership of each faculty
 
     public FacultyList() {
         facultyList = new ArrayList<>();
+        membershipTimeMap = new HashMap<>();
     }
 
     public void addFaculty(String name) {
         if (!isDuplicate(name)) {
-            facultyList.add(formatName(name));
+            String formattedName = formatName(name);
+            facultyList.add(formattedName);
+            membershipTimeMap.put(formattedName, 0); // Initializes membership time as 0
         }
     }
 
@@ -25,16 +31,33 @@ public class FacultyList {
 
     public boolean removeFaculty(String name) {
         Optional<String> facultyToRemove = facultyList.stream()
-        .filter(faculty -> faculty.equalsIgnoreCase(name))
-        .findFirst();
-        facultyToRemove.ifPresent(facultyList::remove);
-        
-        return facultyToRemove.isPresent();
+                .filter(faculty -> faculty.equalsIgnoreCase(name))
+                .findFirst();
+        if (facultyToRemove.isPresent()) {
+            String formattedName = facultyToRemove.get();
+            facultyList.remove(formattedName);
+            membershipTimeMap.remove(formattedName);
+            return true;
+        }
+        return false;
+    }
+
+    // Methods used to manage the membership time of each faculty member:
+
+    public void incrementMembership() {
+        facultyList.forEach(name -> {
+            int currentTime = membershipTimeMap.getOrDefault(name, 0);
+            membershipTimeMap.put(name, currentTime + 1);
+        });
+    }
+
+    public Map<String, Integer> getMembershipTimeMap() {
+        return membershipTimeMap;
     }
 
     // Methods used to insert a new faculty member:
 
-    // Checks if the name is already on the list:
+    //Checks if the name is already on the list
     private boolean isDuplicate(String name) {
         return facultyList.stream().anyMatch(faculty -> faculty.equalsIgnoreCase(name));
     }
@@ -43,16 +66,16 @@ public class FacultyList {
     private String formatName(String name) {
         String[] nameParts = name.split(" ");
         StringBuilder formattedName = new StringBuilder();
-        
+
         for (String part : nameParts) {
             if (!part.isEmpty()) {
-                formattedName.append(part.substring(0, 1).toUpperCase())  // Capitalize first letter
-                              .append(part.substring(1).toLowerCase())   // Make the rest of the letters lowercase
-                              .append(" ");  // Add a space between the names
+                formattedName.append(part.substring(0, 1).toUpperCase())  // Capitalizes first letter
+                             .append(part.substring(1).toLowerCase())   // Makes the rest of the letters lowercase
+                             .append(" ");  // Adds a space between the names
             }
         }
-        
-        // Trim the trailing space and return the formatted name
+
+        // Trims the trailing space and return the formatted name
         return formattedName.toString().trim();
     }
 }
