@@ -149,7 +149,7 @@ public class GUIManager {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!facultyList.getFacultyList().isEmpty()) {
-                    coordinatorPicker.chooseCoordinator(facultyList.getFacultyList());
+                    coordinatorPicker.chooseCoordinator(facultyList.getFacultyList(), facultyList.getMembershipTime());
                     // Update labels with the new coordinator and vice-coordinator
                     coordinatorLabel.setText("Coordenador: " + coordinatorPicker.getCoordinator());
                     viceCoordinatorLabel.setText("Vice-Coordenador: " + coordinatorPicker.getViceCoordinator());

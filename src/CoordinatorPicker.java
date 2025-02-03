@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -16,33 +17,32 @@ import java.util.Random;
     }
 
     // Selects the next coordinator and vice-coordinator
-    public void chooseCoordinator(List<String> facultyList) {
+    public void chooseCoordinator(List<String> facultyList, Map<String, Integer> membershipTimeMap) {
         if (facultyList == null || facultyList.isEmpty()) {
             return;
         }
-
+    
         // In the first election, there is no vice-coordinator
         if (viceCoordinator == null || viceCoordinator.isEmpty()) {
-            viceCoordinator = pickFacultyMember(facultyList);
-            coordinator = pickFacultyMember(facultyList);
+            viceCoordinator = pickFacultyMember(facultyList, membershipTimeMap);
+            coordinator = pickFacultyMember(facultyList, membershipTimeMap);
         }
-
+    
         coordinator = viceCoordinator;
-        viceCoordinator = pickFacultyMember(facultyList);
+        viceCoordinator = pickFacultyMember(facultyList, membershipTimeMap);
     }
 
-    // Randomly selects a faculty member from the list, 
-    //ensuring they are not the current coordinator or vice-coordinator.
-    public String pickFacultyMember(List<String> facultyList) {
+    // Randomly selects a faculty member from the list 
+    public String pickFacultyMember(List<String> facultyList, Map<String, Integer> membershipTimeMap) {
         Random random = new Random();
         String selected;
         do {
             selected = facultyList.get(random.nextInt(facultyList.size()));
-        } while (selected.equals(coordinator) || selected.equals(viceCoordinator));
+        } while (selected.equals(coordinator) || selected.equals(viceCoordinator) || // Ensures the selected member is not the current coordinator or vice-coordinator
+                membershipTimeMap.getOrDefault(selected, 0) < 3); // Checks if the membership time is more than 3
 
         return selected;
     }
-    // no futuro, vou precisar validar os outros requisitos
 
     public String getCoordinator() {
         return coordinator;
