@@ -7,5 +7,5 @@ Este projeto foi desenvolvido como parte da disciplina de Técnicas de Programa�
 No diretório raiz do projeto, execute os seguintes comandos:
 
 ```sh
-javac -d build src/*.java
-java -cp build Main
+javac src/*.java
+java -cp src Main
