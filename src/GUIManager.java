@@ -3,6 +3,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -170,6 +171,7 @@ public class GUIManager {
     // Method to update the text area with the list of members
     private void updateList(JTextArea listArea) {
         List<String> list = facultyList.getFacultyList();
+        Collections.sort(list); // Order alphabetically
         StringBuilder sb = new StringBuilder();
         for (String name : list) {
             sb.append(name).append("\n");
