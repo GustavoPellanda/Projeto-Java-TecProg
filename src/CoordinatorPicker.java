@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -10,6 +15,8 @@ import java.util.Random;
 
     private String coordinator;
     private String viceCoordinator;
+
+    private static final String COORDINATORS_FILE = "coordinators.txt";
 
     public CoordinatorPicker() {
         this.coordinator = "";
@@ -30,6 +37,8 @@ import java.util.Random;
     
         coordinator = viceCoordinator;
         viceCoordinator = pickFacultyMember(facultyList, membershipTimeMap);
+    
+        saveCoordinatorOnList(coordinator);
     }
 
     // Randomly selects a faculty member from the list 
@@ -39,7 +48,8 @@ import java.util.Random;
         do {
             selected = facultyList.get(random.nextInt(facultyList.size()));
         } while (selected.equals(coordinator) || selected.equals(viceCoordinator) || // Ensures the selected member is not the current coordinator or vice-coordinator
-                membershipTimeMap.getOrDefault(selected, 0) < 3); // Checks if the membership time is more than 3
+                membershipTimeMap.getOrDefault(selected, 0) < 3 || // Ensures the membership time is more than 3
+                isCoordinatorOnList(selected)); // Ensures the selected member has mever been a coordinator before
 
         return selected;
     }
@@ -50,6 +60,33 @@ import java.util.Random;
 
     public String getViceCoordinator() {
         return viceCoordinator;
+    }
+
+    // Methods for keeping track of who has already been a coordinator:
+
+    private void saveCoordinatorOnList(String coordinator) {
+        if (!isCoordinatorOnList(coordinator)) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(COORDINATORS_FILE, true))) {
+                writer.write(coordinator);
+                writer.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean isCoordinatorOnList(String name) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(COORDINATORS_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().equalsIgnoreCase(name)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
 
