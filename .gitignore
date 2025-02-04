@@ -1,5 +1,6 @@
 build/
-*json
+*.json
+*.txt
 
 # Compiled class file
 *.class
