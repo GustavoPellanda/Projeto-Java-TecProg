@@ -73,15 +73,26 @@ public class FacultyList {
     private String formatName(String name) {
         String[] nameParts = name.split(" ");
         StringBuilder formattedName = new StringBuilder();
-
+    
         for (String part : nameParts) {
             if (!part.isEmpty()) {
-                formattedName.append(part.substring(0, 1).toUpperCase())  // Capitalizes first letter
-                             .append(part.substring(1).toLowerCase())   // Makes the rest of the letters lowercase
-                             .append(" ");  // Adds a space between the names
+                // Check if the part contains a hyphen
+                StringBuilder formattedPart = new StringBuilder();
+                String[] subParts = part.split("-");
+    
+                for (int i = 0; i < subParts.length; i++) {
+                    if (i > 0) {
+                        formattedPart.append("-"); // Re-adding hyphen
+                    }
+                    // Capitalizes the first letter of each subpart
+                    formattedPart.append(subParts[i].substring(0, 1).toUpperCase())
+                                 .append(subParts[i].substring(1).toLowerCase());
+                }
+    
+                formattedName.append(formattedPart).append(" ");
             }
         }
-
+    
         // Trims the trailing space and return the formatted name
         return formattedName.toString().trim();
     }
