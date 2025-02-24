@@ -4,8 +4,12 @@ Este projeto foi desenvolvido como parte da disciplina de Técnicas de Programa�
 
 ## Como rodar o projeto
 
-No diretório raiz do projeto, execute os seguintes comandos:
+O projeto utiliza o Maven para gerenciamento de dependências e construção. Com o Manven instalado, execute os seguintes comandos:
 
 ```sh
-javac src/*.java
-java -cp src Main
+mvn clean package
+```
+
+```sh
+java -cp target/coordinator-picker-1.0-SNAPSHOT.jar Main
+```

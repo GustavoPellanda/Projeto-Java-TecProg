@@ -2,6 +2,20 @@ build/
 *.json
 *.txt
 
+# Maven-specific files and directories
+target/
+.mvn/
+mvnw
+mvnw.cmd
+pom.xml.versionsBackup
+*.iml
+*.ipr
+*.iws
+.idea/
+.classpath
+.project
+.settings/
+
 # Compiled class file
 *.class
 
