@@ -64,7 +64,7 @@ import java.util.Random;
 
     // Methods for keeping track of who has already been a coordinator:
 
-    private void saveCoordinatorOnList(String coordinator) {
+    public void saveCoordinatorOnList(String coordinator) {
         if (!isCoordinatorOnList(coordinator)) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(COORDINATORS_FILE, true))) {
                 writer.write(coordinator);
@@ -75,7 +75,7 @@ import java.util.Random;
         }
     }
 
-    private boolean isCoordinatorOnList(String name) {
+    public boolean isCoordinatorOnList(String name) {
         try (BufferedReader reader = new BufferedReader(new FileReader(COORDINATORS_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
