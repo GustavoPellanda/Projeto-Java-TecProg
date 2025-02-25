@@ -33,7 +33,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20231013</version> 
+            <version>20231013</version>
         </dependency>
     </dependencies>
 
@@ -70,6 +70,16 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact> <!-- Afeta todas as dependências -->
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude> <!-- Exclui o MANIFEST.MF duplicado -->
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
             </plugin>
         </plugins>
     </build>
