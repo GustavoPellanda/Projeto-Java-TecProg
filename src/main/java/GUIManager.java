@@ -183,7 +183,11 @@ public class GUIManager {
                 probabilityArea.setEditable(false);
                 StringBuilder sb = new StringBuilder();
                 for (Map.Entry<String, Double> entry : probabilities.entrySet()) {
-                    sb.append(entry.getKey()).append(": ").append(String.format("%.4f", entry.getValue())).append("\n");
+                    double probabilityInPercentage = entry.getValue() * 100;  // Convertendo para porcentagem
+                    sb.append(entry.getKey())
+                      .append(": ")
+                      .append(String.format("%.2f%%", probabilityInPercentage))  // Exibindo como porcentagem
+                      .append("\n");
                 }
                 probabilityArea.setText(sb.toString());
                 probabilityFrame.add(new JScrollPane(probabilityArea));
@@ -192,7 +196,7 @@ public class GUIManager {
                 probabilityFrame.setVisible(true);
             }
         });
-        
+
         // Update the list when GUI is created
         updateList(listArea);
 
