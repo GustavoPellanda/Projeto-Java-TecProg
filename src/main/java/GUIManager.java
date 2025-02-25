@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is responsible for creating and managing the GUI.
@@ -116,6 +117,19 @@ public class GUIManager {
         gbc.gridwidth = 2;
         panel.add(pickButton, gbc);
 
+        // Probability calculation button
+        JButton probabilityButton = new JButton("Calcular Probabilidades");
+        probabilityButton.setBackground(new Color(200, 150, 50)); // Orange background
+        probabilityButton.setForeground(Color.WHITE);
+        probabilityButton.setFocusPainted(false);
+        probabilityButton.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        gbc.gridx = 0;
+        gbc.gridy = 5; // Place it below the coordinator button
+        gbc.gridwidth = 2;
+        panel.add(probabilityButton, gbc);
+
+
         // Add functionality to the buttons
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -160,6 +174,25 @@ public class GUIManager {
             }
         });
 
+        probabilityButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Map<String, Double> probabilities = ProbabilityCalculator.calculateProbabilities();
+                JFrame probabilityFrame = new JFrame("Probabilidades de Coordenação");
+                JTextArea probabilityArea = new JTextArea(10, 30);
+                probabilityArea.setEditable(false);
+                StringBuilder sb = new StringBuilder();
+                for (Map.Entry<String, Double> entry : probabilities.entrySet()) {
+                    sb.append(entry.getKey()).append(": ").append(String.format("%.4f", entry.getValue())).append("\n");
+                }
+                probabilityArea.setText(sb.toString());
+                probabilityFrame.add(new JScrollPane(probabilityArea));
+                probabilityFrame.setSize(400, 300);
+                probabilityFrame.setLocationRelativeTo(null);
+                probabilityFrame.setVisible(true);
+            }
+        });
+        
         // Update the list when GUI is created
         updateList(listArea);
 
